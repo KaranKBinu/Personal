@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CGPA Calculator</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0; /* Square-shaped */
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 15px 30px; /* Larger button size */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #1e7e34;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .form-row {
+            margin-bottom: 15px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+        
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .form-row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .form-group {
+                flex-basis: 48%;
+            }
+            select, input[type="number"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Calculator for Kerala Polytechnic</h1>
+        <form>
+            <div class="form-group">
+                <label for="numSubjects">Number of Subjects:</label>
+                <input type="number" class="form-control" id="numSubjects" placeholder="Enter number of subjects" required>
+            </div>
+            <div class="error-message" id="errorMessage"></div>
+
+            <div id="subjectDetails"></div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-success" onclick="createInputFields()">Enter</button>
+                <button type="button" class="btn btn-primary btn-lg" id="calcbtn" onclick="calculateCGPA()">Calculate CGPA</button>
+                <button type="button" class="btn btn-danger" onclick="clearInputFields()">Clear</button>
+                
+            </div>
+
+            <!-- Result Modal -->
+            <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="resultModalLabel">CGPA Result</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Result Modal -->
+        </form>
+    </div>
+    <br>
+    <hr>
+<div class="container">
+    <h1>How to Calculate CGPA - Step by Step Guide</h1>
+    <p>Created by Karan K Binu</p>
+    <p>For any questions or comments, contact me at <a href="mailto:karankbinu2004@gmail.com">Gmail</a></p>
+   
+    <ol>
+        <li>
+            <p><strong>Step 1:</strong> Start by entering the number of subjects you want to calculate your CGPA for in the "Number of Subjects" field.</p>
+            
+        </li>
+        <li>
+            <p><strong>Step 2:</strong> Click the "Enter" button to generate input fields for each subject based on the number you entered.</p>
+            
+        </li>
+        <li>
+            <p><strong>Step 3:</strong> For each subject, enter the following information:</p>
+            <ul>
+                <li><strong>Credit:</strong> Enter the credit value for the subject in the provided input field.</li>
+                <li><strong>Grade:</strong> Select the grade you received for the subject from the dropdown list.</li>
+            </ul>
+            <p>Repeat this step for all subjects you want to include in the calculation.</p>
+           
+        </li>
+        <li>
+            <p><strong>Step 4:</strong> After entering the details for all subjects, click the "Calculate CGPA" button.</p>
+          
+        </li>
+        <li>
+            <p><strong>Step 5:</strong> The calculated CGPA and percentage will be displayed in a modal window.</p>
+            
+        </li>
+        <li>
+            <p><strong>Step 6:</strong> You can choose to clear the input fields by clicking the "Clear" button for a fresh calculation, or make adjustments and recalculate your CGPA as needed.</p>
+           
+        </li>
+    </ol>
+    <p>That's it! You've successfully calculated your CGPA using the CGPA Calculator.</p>
+</div>
+
+    <!-- Add Bootstrap JS and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function createInputFields() {
+            const numSubjects = parseInt(document.getElementById('numSubjects').value);
+
+            if (numSubjects > 30) {
+                document.getElementById('errorMessage').textContent = 'Number of subjects cannot exceed 30.';
+                return;
+            }
+
+            document.getElementById('errorMessage').textContent = '';
+
+            let inputFields = '';
+
+            for (let i = 1; i <= numSubjects; i++) {
+                inputFields += `
+                <div class="form-row">
+                    <div class="col-md-6 form-group">
+                        <label for="credit${i}" style="color:blue;">Subject ${i} Credit:</label>
+                        <input type="number" class="form-control" id="credit${i}" placeholder="Enter credit">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="grade${i}" style="color:red;">Subject ${i} Grade:</label>
+                        <select class="form-control" id="grade${i}">
+                            <option value="S">S</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                </div>
+                `;
+            }
+
+            document.getElementById('subjectDetails').innerHTML = inputFields;
+        }
+
+        function clearInputFields() {
+            document.getElementById('subjectDetails').innerHTML = '';
+            document.getElementById('result').innerHTML = '';
+        }
+        
+        function calculateCGPA() {
+            const numSubjects = parseInt(document.getElementById('numSubjects').value);
+            let totalCredits = 0;
+            let totalSubjectScore = 0;
+
+            for (let i = 1; i <= numSubjects; i++) {
+                const credit = parseInt(document.getElementById(`credit${i}`).value);
+                const grade = document.getElementById(`grade${i}`).value.toUpperCase();
+                let gradeScore = 0;
+
+                switch (grade) {
+                    case 'S':
+                        gradeScore = 10;
+                        break;
+                    case 'A':
+                        gradeScore = 9;
+                        break;
+                    case 'B':
+                        gradeScore = 8;
+                        break;
+                    case 'C':
+                        gradeScore = 7;
+                        break;
+                    case 'E':
+                        gradeScore = 6;
+                        break;
+                    case 'F':
+                        gradeScore = 5;
+                        break;
+                }
+
+                totalCredits += credit;
+                totalSubjectScore += credit * gradeScore;
+            }
+
+            const cgpa = totalSubjectScore / totalCredits;
+            const percentage = cgpa * 9.5;
+
+            // Display CGPA result in the modal
+            document.getElementById('result').innerHTML = `
+            <h2 class="text-center">CGPA: ${cgpa.toFixed(2)}</h2>
+            <h2 class="text-center">Percentage: ${percentage.toFixed(2)}%</h2>
+            `;
+
+            // Show the result modal
+            $('#resultModal').modal('show');
+        }
+    </script>
+</body>
+  </html>
+  
