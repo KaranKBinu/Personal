@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>CGPA Calculator</title>
     <!-- Add Bootstrap CSS link -->
@@ -9,6 +10,7 @@
             padding: 20px;
             background-color: #f7f7f7;
         }
+
         .container {
             max-width: 600px;
             background-color: #fff;
@@ -16,53 +18,68 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             font-weight: bold;
             color: #333;
         }
-        select, input[type="number"] {
+
+        select,
+        input[type="number"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 0; /* Square-shaped */
+            border-radius: 0;
+            /* Square-shaped */
         }
+
         .btn-primary {
             background-color: #007bff;
             border: none;
-            padding: 15px 30px; /* Larger button size */
+            padding: 15px 30px;
+            /* Larger button size */
         }
+
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
         .btn-success {
             background-color: #28a745;
             border: none;
         }
+
         .btn-success:hover {
             background-color: #1e7e34;
         }
+
         .btn-danger {
             background-color: #dc3545;
             border: none;
         }
+
         .btn-danger:hover {
             background-color: #c82333;
         }
+
         .form-row {
             margin-bottom: 15px;
         }
+
         .error-message {
             color: red;
             font-weight: bold;
         }
-        
+
         /* Media query for smaller screens */
         @media (max-width: 768px) {
             .form-row {
@@ -70,36 +87,82 @@
                 flex-wrap: wrap;
                 justify-content: space-between;
             }
+
             .form-group {
                 flex-basis: 48%;
             }
-            select, input[type="number"] {
+
+            select,
+            input[type="number"] {
                 width: 100%;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>CGPA Calculator for Kerala Polytechnic</h1>
+        <h1>CGPA Calculator for Kerala Polytechnic Revision 2021 <br>
+            <span style="font-size: 30px;"> ( Now only for CHE, CT, EC, IE and ME )</span> </h1>
         <form>
             <div class="form-group">
-                <label for="numSubjects">Number of Subjects:</label>
-                <input type="number" class="form-control" id="numSubjects" placeholder="Enter number of subjects" required>
+                <label for="department">Select Department:</label>
+                <select class="form-control" id="department">
+                    <option value="department1">Computer Hardware Engineering</option>
+                    <option value="department2">Computer Engineering</option>
+                    <option value="department3">Electronics and communication</option>
+                    <option value="department4">Instrumentation Engineering</option>
+                    <option value="department5">Mechanical Engineering</option>
+                    <!-- Add more departments as needed -->
+                </select>
             </div>
-            <div class="error-message" id="errorMessage"></div>
 
+            <div class="form-group">
+                <label for="semester">Select Semester:</label>
+                <select class="form-control" id="semester">
+                    <option value="semester1">Semester 1</option>
+                    <option value="semester2">Semester 2</option>
+                    <option value="semester3">Semester 3</option>
+                    <option value="semester4">Semester 4</option>
+                    <option value="semester5">Semester 5</option>
+                    <option value="semester6">Semester 6</option>
+                    <!-- Add more semesters as needed -->
+                </select>
+            </div>
+            <button type="button" class="btn btn-success" onclick="createInputFields()">Enter</button>
+            <button type="button" class="btn btn-danger" onclick="clearInputFields()">Clear</button>
             <div id="subjectDetails"></div>
 
             <div class="text-center">
-                <button type="button" class="btn btn-success" onclick="createInputFields()">Enter</button>
-                <button type="button" class="btn btn-primary btn-lg" id="calcbtn" onclick="calculateCGPA()">Calculate CGPA</button>
-                <button type="button" class="btn btn-danger" onclick="clearInputFields()">Clear</button>
-                
+
+                <button type="button" class="btn btn-primary btn-lg" id="calcbtn" onclick="calculateCGPA()">Calculate
+                    CGPA</button>
+
+
             </div>
 
             <!-- Result Modal -->
-            <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+            <style>
+                /* Custom CSS to make the modal larger and center-aligned */
+                #resultModal .modal-dialog {
+                    max-width: 80%;
+                    margin: 0 auto;
+                    margin-top: 50%;
+                    
+                }
+            
+                #resultModal .modal-content {
+                    padding: 200px;
+                }
+                #resultModal .modal-title {
+                    text-align: center;
+                    font-size: 40px;
+                    margin-left: 65px;
+                }
+            </style>
+            
+            <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -108,55 +171,63 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <strong>
                         <div class="modal-body">
                             <div id="result"></div>
                         </div>
+                        </strong>
                     </div>
                 </div>
             </div>
+
             <!-- End Result Modal -->
         </form>
     </div>
     <br>
     <hr>
-<div class="container">
-    <h1>How to Calculate CGPA - Step by Step Guide</h1>
-    <p>Created by Karan K Binu</p>
-    <p>For any questions or comments, contact me at <a href="mailto:karankbinu2004@gmail.com">Gmail</a></p>
-   
-    <ol>
-        <li>
-            <p><strong>Step 1:</strong> Start by entering the number of subjects you want to calculate your CGPA for in the "Number of Subjects" field.</p>
-            
-        </li>
-        <li>
-            <p><strong>Step 2:</strong> Click the "Enter" button to generate input fields for each subject based on the number you entered.</p>
-            
-        </li>
-        <li>
-            <p><strong>Step 3:</strong> For each subject, enter the following information:</p>
-            <ul>
-                <li><strong>Credit:</strong> Enter the credit value for the subject in the provided input field.</li>
-                <li><strong>Grade:</strong> Select the grade you received for the subject from the dropdown list.</li>
-            </ul>
-            <p>Repeat this step for all subjects you want to include in the calculation.</p>
-           
-        </li>
-        <li>
-            <p><strong>Step 4:</strong> After entering the details for all subjects, click the "Calculate CGPA" button.</p>
-          
-        </li>
-        <li>
-            <p><strong>Step 5:</strong> The calculated CGPA and percentage will be displayed in a modal window.</p>
-            
-        </li>
-        <li>
-            <p><strong>Step 6:</strong> You can choose to clear the input fields by clicking the "Clear" button for a fresh calculation, or make adjustments and recalculate your CGPA as needed.</p>
-           
-        </li>
-    </ol>
-    <p>That's it! You've successfully calculated your CGPA using the CGPA Calculator.</p>
-</div>
+    <div class="container">
+        <h1>How to Calculate CGPA - Step by Step Guide</h1>
+        <p>Created by Karan K Binu</p>
+        <p>For any questions or comments, contact me at <a href="mailto:karankbinu2004@gmail.com">Gmail</a></p>
+
+        <ol>
+            <li>
+                <p><strong>NOTE:</strong> if you do not have a subject then leave it as like it is </p>
+                <p><strong>Step 1:</strong> Begin by selecting your department and semester from the dropdown lists.</p>
+            </li>
+            <li>
+                <p><strong>Step 2:</strong> Click the "Enter" button to generate input fields for your selected
+                    department and
+                    semester. Subjects will be automatically populated based on your selection.</p>
+            </li>
+            <li>
+                <p><strong>Step 3:</strong> For each subject, enter the following information:</p>
+                <ul>
+                    <li><strong>Credit:</strong> Ensure the credit value for the subject is valid (a positive number) in
+                        the
+                        provided field.</li>
+                    <li><strong>Grade:</strong> Choose the grade you received for the subject from the dropdown list.
+                    </li>
+                </ul>
+                <p>Repeat this step for all subjects you want to include in the calculation.</p>
+            </li>
+            <li>
+                <p><strong>Step 4:</strong> Once you have entered the details for all subjects, click the "Calculate
+                    CGPA"
+                    button.</p>
+            </li>
+            <li>
+                <p><strong>Step 5:</strong> The calculated CGPA and percentage will be displayed in a modal window.</p>
+            </li>
+            <li>
+                <p><strong>Step 6:</strong> You can opt to clear the input fields by clicking the "Clear" button for a
+                    fresh
+                    calculation, or make adjustments and recalculate your CGPA as needed.</p>
+            </li>
+        </ol>
+
+        <p>That's it! You've successfully calculated your CGPA using the CGPA Calculator.</p>
+    </div>
 
     <!-- Add Bootstrap JS and jQuery scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -164,57 +235,1828 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function createInputFields() {
-            const numSubjects = parseInt(document.getElementById('numSubjects').value);
+        // Define course details for each department and semester
+        const courseDetails = {
+            department1: {
+                semester1: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 1001 ',
+                        courseName: ' Communication Skills in English ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 1002 ',
+                        courseName: ' Mathematics I ',
+                        credits: 5,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 1003 ',
+                        courseName: ' Applied Physics I ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 1004 ',
+                        courseName: ' Applied Chemistry ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 1005 ',
+                        courseName: ' Engineering Graphics ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 1007 ',
+                        courseName: ' Applied Chemistry Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 1008 ',
+                        courseName: ' Introduction to IT systems Lab ',
+                        credits: 2,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 1009 ',
+                        courseName: ' Sports and Yoga ',
+                        credits: 1,
+                    },
+                ],
+                semester2: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 2002 ',
+                        courseName: ' Mathematics II ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 2003 ',
+                        courseName: ' Applied Physics II ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 2001 ',
+                        courseName: ' Environmental Science ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 2031 ',
+                        courseName: ' Fundamentals of Electrical & Electronics Engineering ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 2131 ',
+                        courseName: ' Problem Solving and Programming ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 2008 ',
+                        courseName: ' Communication Skills in English Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 2006 ',
+                        courseName: ' Applied Physics Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 2039 ',
+                        courseName: ' Fundamentals of Eletrical & Electronics Engineering Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 2139 ',
+                        courseName: ' Problem Solving and Programming Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 10,
+                        courseCode: ' 2009 ',
+                        courseName: ' Engineering Workshop Practice ',
+                        credits: 1.5,
+                    },
+                    // Add more courses for semester 2 in department 1
+                ],
+                semester3: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 3151 ',
+                        courseName: ' Computer System Architecture ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 3132 ',
+                        courseName: ' Programming in C ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 3152 ',
+                        courseName: ' Computer Networks I ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 3134 ',
+                        courseName: ' Digital Computer Fundamentals ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 3135 ',
+                        courseName: ' Programming in C Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 3157 ',
+                        courseName: ' System Administration Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 3137 ',
+                        courseName: ' Digital Computer Fundamentals Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 3158 ',
+                        courseName: ' Computer Hardware Lab I ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 3159 ',
+                        courseName: ' Application Development Lab ',
+                        credits: 0,
+                    },
+                ],
+                semester4: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 4131 ',
+                        courseName: ' Object Oriented Programming ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 4151 ',
+                        courseName: ' Computer Networks II ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 4152 ',
+                        courseName: ' Embedded System and Real time Operating System ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 4001 ',
+                        courseName: ' Community Skills in Indian knowledge system ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 4136 ',
+                        courseName: ' Object Oriented Programming Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 4157 ',
+                        courseName: ' Network Administration Lab I ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 4158 ',
+                        courseName: ' Embedded system Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 4159 ',
+                        courseName: ' Computer Hardware Lab II ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 4006 ',
+                        courseName: ' Minor Project ',
+                        credits: 2,
+                    },
+                ],
+                semester5: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 5002 ',
+                        courseName: ' Project Management and Software Engineering ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 5151 ',
+                        courseName: ' Internet of Things ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 5132 ',
+                        courseName: ' Operating System ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 5133A ',
+                        courseName: ' Virtualisation Technology and Cloud Computing ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 5157 ',
+                        courseName: ' Internet of Things Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 5158 ',
+                        courseName: ' Network Administration Lab II ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 5139A ',
+                        courseName: ' Virtualisation Technology and cloud computing Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 5008 ',
+                        courseName: ' Seminar ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 0,
+                    },
+                ],
+                semester6: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 6001 ',
+                        courseName: ' Entrepreneurship and Startup ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 6131C ',
+                        courseName: ' Software Testing ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 6132A ',
+                        courseName: ' Introduction to IoT ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 6002 ',
+                        courseName: ' Indian Constitution ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 6157 ',
+                        courseName: ' Programming Smart Device Lab ',
+                        credits: 2.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 6158 ',
+                        courseName: ' Ethical Hacking Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 6139C ',
+                        courseName: ' Software Testing Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 4,
+                    },
+                ],
 
-            if (numSubjects > 30) {
-                document.getElementById('errorMessage').textContent = 'Number of subjects cannot exceed 30.';
-                return;
+            },
+            department2: {
+                semester1: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 1001 ',
+                        courseName: ' Communication Skills in English ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 1002 ',
+                        courseName: ' Mathematics I ',
+                        credits: 5,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 1003 ',
+                        courseName: ' Applied Physics I ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 1004 ',
+                        courseName: ' Applied Chemistry ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 1005 ',
+                        courseName: ' Engineering Graphics ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 1007 ',
+                        courseName: ' Applied Chemistry Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 1008 ',
+                        courseName: ' Introduction to IT systems Lab ',
+                        credits: 2,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 1009 ',
+                        courseName: ' Sports and Yoga ',
+                        credits: 1,
+                    },
+                ],
+                semester2: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 2002 ',
+                        courseName: ' Mathematics II ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 2003 ',
+                        courseName: ' Applied Physics II ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 2001 ',
+                        courseName: ' Environmental Science ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 2031 ',
+                        courseName: ' Fundamentals of Electrical & Electronics Engineering ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 2131 ',
+                        courseName: ' Problem Solving and Programming ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 2008 ',
+                        courseName: ' Communication Skills in English Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 2006 ',
+                        courseName: ' Applied Physics Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 2039 ',
+                        courseName: ' Fundamentals of Eletrical & Electronics Engineering Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 2139 ',
+                        courseName: ' Problem Solving and Programming Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 10,
+                        courseCode: ' 2009 ',
+                        courseName: ' Engineering Workshop Practice ',
+                        credits: 1.5,
+                    },
+                ],
+                semester3: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 3131 ',
+                        courseName: ' Computer Organisation ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 3132 ',
+                        courseName: ' Programming in C ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 3133 ',
+                        courseName: ' Database Management Systems ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 3134 ',
+                        courseName: ' Digital Computer Fundamentals ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 3135 ',
+                        courseName: ' Programming in C Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 3136 ',
+                        courseName: ' Database Management System lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 3137 ',
+                        courseName: ' Digital Computer Fundamentals Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 3138 ',
+                        courseName: ' Web Technology lab ',
+                        credits: 2.5,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 3139 ',
+                        courseName: ' Computer System Hardware Lab ',
+                        credits: 0,
+                    },
+                ],
+                semester3: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 4131 ',
+                        courseName: ' Object Oriented Programming ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 4132 ',
+                        courseName: ' Computer Communication and Networks ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 4133 ',
+                        courseName: ' Data Structures ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 4001 ',
+                        courseName: ' Community Skills in Indian knowledge system ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 4136 ',
+                        courseName: ' Object Oriented Programming Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 4137 ',
+                        courseName: ' Web Programming Lab ',
+                        credits: 2.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 4138 ',
+                        courseName: ' Data Structures Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 4139 ',
+                        courseName: ' Application Development Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 4006 ',
+                        courseName: ' Minor Project ',
+                        credits: 2,
+                    },
+                ],
+                semester4: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 4131 ',
+                        courseName: ' Object Oriented Programming ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 4132 ',
+                        courseName: ' Computer Communication and Networks ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 4133 ',
+                        courseName: ' Data Structures ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 4001 ',
+                        courseName: ' Community Skills in Indian knowledge system ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 4136 ',
+                        courseName: ' Object Oriented Programming Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 4137 ',
+                        courseName: ' Web Programming Lab ',
+                        credits: 2.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 4138 ',
+                        courseName: ' Data Structures Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 4139 ',
+                        courseName: ' Application Development Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 4006 ',
+                        courseName: ' Minor Project ',
+                        credits: 2,
+                    },
+                ],
+                semester5: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 5002 ',
+                        courseName: ' Project Management and Software Engineering ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 5131 ',
+                        courseName: ' Embedded System and Real time Operating System ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 5132 ',
+                        courseName: ' Operating System ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 5133A ',
+                        courseName: ' Virtualisation Technology and Cloud Computing ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 5137 ',
+                        courseName: ' Embedded Systems and Real Time Operating System Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 5138 ',
+                        courseName: ' System Administration Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 5139A ',
+                        courseName: ' Virtualisation Technology and cloud computing Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 5008 ',
+                        courseName: ' Seminar ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 0,
+                    },
+                ],
+                semester6: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 6001 ',
+                        courseName: ' Entrepreneurship and Startup ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 6131A ',
+                        courseName: ' Internet of Things ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 6132A ',
+                        courseName: ' Introduction to IoT ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 6002 ',
+                        courseName: ' Indian Constitution ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 6137 ',
+                        courseName: ' Computer Network Engineering Lab ',
+                        credits: 2.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 6138 ',
+                        courseName: ' Smart Device Programming Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 6139A ',
+                        courseName: ' Internet of Things Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 4,
+                    },
+                ],
+            },
+            department3:{
+                    semester1: [
+                        {
+                            siNo: 1,
+                            courseCode: ' 1001 ',
+                            courseName: ' Communication Skills in English ',
+                            credits: 4,
+                        },
+                        {
+                            siNo: 2,
+                            courseCode: ' 1002 ',
+                            courseName: ' Mathematics I ',
+                            credits: 5,
+                        },
+                        {
+                            siNo: 3,
+                            courseCode: ' 1003 ',
+                            courseName: ' Applied Physics I ',
+                            credits: 3,
+                        },
+                        {
+                            siNo: 4,
+                            courseCode: ' 1004 ',
+                            courseName: ' Applied Chemistry ',
+                            credits: 3,
+                        },
+                        {
+                            siNo: 5,
+                            courseCode: ' 1005 ',
+                            courseName: ' Engineering Graphics ',
+                            credits: 1.5,
+                        },
+                        {
+                            siNo: 6,
+                            courseCode: ' 2006 ',
+                            courseName: ' Applied Physics Lab ',
+                            credits: 0,
+                        },
+                        {
+                            siNo: 7,
+                            courseCode: ' 1007 ',
+                            courseName: ' Applied Chemistry Lab ',
+                            credits: 1,
+                        },
+                        {
+                            siNo: 8,
+                            courseCode: ' 1008 ',
+                            courseName: ' Introduction to IT systems Lab ',
+                            credits: 2,
+                        },
+                        {
+                            siNo: 9,
+                            courseCode: ' 2009 ',
+                            courseName: ' Engineering Workshop Practice ',
+                            credits: 0,
+                        },
+                        {
+                            siNo: 10,
+                            courseCode: ' 1009 ',
+                            courseName: ' Sports and Yoga ',
+                            credits: 1,
+                        },
+                    ],
+                        semester2: [
+                            {
+                                siNo: 1,
+                                courseCode: ' 2002 ',
+                                courseName: ' Mathematics II ',
+                                credits: 4,
+                            },
+                            {
+                                siNo: 2,
+                                courseCode: ' 2003 ',
+                                courseName: ' Applied Physics II ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 3,
+                                courseCode: ' 2001 ',
+                                courseName: ' Environmental Science ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 4,
+                                courseCode: ' 2031 ',
+                                courseName: ' Fundamentals of Electrical & Electronics Engineering ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 5,
+                                courseCode: ' 2041 ',
+                                courseName: ' Basic Electronics ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 6,
+                                courseCode: ' 2008 ',
+                                courseName: ' Communication Skills in English Lab ',
+                                credits: 1.5,
+                            },
+                            {
+                                siNo: 7,
+                                courseCode: ' 2006 ',
+                                courseName: ' Applied Physics Lab ',
+                                credits: 1,
+                            },
+                            {
+                                siNo: 8,
+                                courseCode: ' 2039 ',
+                                courseName: ' Fundamentals of Eletrical & Electronics Engineering Lab ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 9,
+                                courseCode: ' 2049 ',
+                                courseName: ' Electronics Tinkering Workshop ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 10,
+                                courseCode: ' 2009 ',
+                                courseName: ' Engineering Workshop Practice ',
+                                credits: 1.5,
+                            },
+                        ],
+                            semester3: [
+                                {
+                                    siNo: 1,
+                                    courseCode: ' 3041 ',
+                                    courseName: ' Electric Circuits & Networks ',
+                                    credits: 3,
+                                },
+                                {
+                                    siNo: 2,
+                                    courseCode: ' 3042 ',
+                                    courseName: ' Principles of Electronic Communication ',
+                                    credits: 3,
+                                },
+                                {
+                                    siNo: 3,
+                                    courseCode: ' 3043 ',
+                                    courseName: ' Electronic Circuits ',
+                                    credits: 4,
+                                },
+                                {
+                                    siNo: 4,
+                                    courseCode: ' 3044 ',
+                                    courseName: ' Digital Electronics ',
+                                    credits: 4,
+                                },
+                                {
+                                    siNo: 5,
+                                    courseCode: ' 3045 ',
+                                    courseName: ' Fundamentals of C Programming ',
+                                    credits: 0,
+                                },
+                                {
+                                    siNo: 6,
+                                    courseCode: ' 3046 ',
+                                    courseName: ' Principles of Electronic Communication Lab ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 7,
+                                    courseCode: ' 3047 ',
+                                    courseName: ' Electronic Circuits Lab ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 8,
+                                    courseCode: ' 3048 ',
+                                    courseName: ' Digital Electronics Lab ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 9,
+                                    courseCode: ' 3049 ',
+                                    courseName: ' Fundamentals of C Programming Lab ',
+                                    credits: 1.5,
+                                },
+                            ],
+                                semester4: [
+                                    {
+                                        siNo: 1,
+                                        courseCode: ' 4041 ',
+                                        courseName: ' Microcontroller and Applications ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 2,
+                                        courseCode: ' 4042 ',
+                                        courseName: ' Electronic Measurements and Instrumentation ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 3,
+                                        courseCode: ' 4043 ',
+                                        courseName: ' Linear Integrated Circuits ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 4,
+                                        courseCode: ' 4001 ',
+                                        courseName: ' Community Skills in Indian knowledge system ',
+                                        credits: 0,
+                                    },
+                                    {
+                                        siNo: 5,
+                                        courseCode: ' 4046 ',
+                                        courseName: ' Microcontroller and Applications Lab ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 6,
+                                        courseCode: ' 4047 ',
+                                        courseName: ' Linear Integrated Circuits Lab ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 7,
+                                        courseCode: ' 4048 ',
+                                        courseName: ' PCB and Prototyping Workshop ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 8,
+                                        courseCode: ' 4049 ',
+                                        courseName: ' Python Programming Lab ',
+                                        credits: 0,
+                                    },
+                                    {
+                                        siNo: 9,
+                                        courseCode: ' 4009 ',
+                                        courseName: ' Minor Project ',
+                                        credits: 2,
+                                    },
+                                ],
+                                    semester5: [
+                                        {
+                                            siNo: 1,
+                                            courseCode: ' 5001 ',
+                                            courseName: ' Industrial Management and Safety ',
+                                            credits: 0,
+                                        },
+                                        {
+                                            siNo: 2,
+                                            courseCode: ' 5043D ',
+                                            courseName: ' Digital Communication ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 3,
+                                            courseCode: ' 5201 ',
+                                            courseName: ' Signals and Systems ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 4,
+                                            courseCode: ' 5042 ',
+                                            courseName: ' Industrial Automation ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 5,
+                                            courseCode: ' 5049B ',
+                                            courseName: ' Digital Communication Lab ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 6,
+                                            courseCode: ' 5209 ',
+                                            courseName: ' Verilog HDL & PLD Lab ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 7,
+                                            courseCode: ' 5048 ',
+                                            courseName: ' Industrial Automation Lab ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 8,
+                                            courseCode: ' 5008 ',
+                                            courseName: ' Seminar ',
+                                            credits: 1,
+                                        },
+                                        {
+                                            siNo: 9,
+                                            courseCode: ' 6009 ',
+                                            courseName: ' Major Project ',
+                                            credits: 0,
+                                        },
+                                    ],
+                                        semester6: [
+                                            {
+                                                siNo: 1,
+                                                courseCode: ' 6001 ',
+                                                courseName: ' Entrepreneurship and Startup ',
+                                                credits: 4,
+                                            },
+                                            {
+                                                siNo: 2,
+                                                courseCode: ' 6041A ',
+                                                courseName: ' Medical Electronics ',
+                                                credits: 4,
+                                            },
+                                            {
+                                                siNo: 3,
+                                                courseCode: ' 6042A ',
+                                                courseName: ' Concepts of IoT ',
+                                                credits: 4,
+                                            },
+                                            {
+                                                siNo: 4,
+                                                courseCode: ' 6002 ',
+                                                courseName: ' Indian Constitution ',
+                                                credits: 0,
+                                            },
+                                            {
+                                                siNo: 5,
+                                                courseCode: ' 6047 ',
+                                                courseName: ' Simulation Lab with Numerical software ',
+                                                credits: 1.5,
+                                            },
+                                            {
+                                                siNo: 6,
+                                                courseCode: ' 6048 ',
+                                                courseName: ' Computer Hardware and Data Communication Lab ',
+                                                credits: 2.5,
+                                            },
+                                            {
+                                                siNo: 7,
+                                                courseCode: ' 6049A ',
+                                                courseName: ' Medical Electronics Lab ',
+                                                credits: 1.5,
+                                            },
+                                            {
+                                                siNo: 8,
+                                                courseCode: ' 6009 ',
+                                                courseName: ' Major Project ',
+                                                credits: 4,
+                                            },
+                ],
+            },
+            department4:{
+               
+                    semester1: [
+                        {
+                            siNo: 1,
+                            courseCode: ' 1001 ',
+                            courseName: ' Communication Skills in English ',
+                            credits: 4,
+                        },
+                        {
+                            siNo: 2,
+                            courseCode: ' 1002 ',
+                            courseName: ' Mathematics I ',
+                            credits: 5,
+                        },
+                        {
+                            siNo: 3,
+                            courseCode: ' 1003 ',
+                            courseName: ' Applied Physics I ',
+                            credits: 3,
+                        },
+                        {
+                            siNo: 4,
+                            courseCode: ' 1004 ',
+                            courseName: ' Applied Chemistry ',
+                            credits: 3,
+                        },
+                        {
+                            siNo: 5,
+                            courseCode: ' 1005 ',
+                            courseName: ' Engineering Graphics ',
+                            credits: 1.5,
+                        },
+                        {
+                            siNo: 6,
+                            courseCode: ' 2006 ',
+                            courseName: ' Applied Physics Lab ',
+                            credits: 0,
+                        },
+                        {
+                            siNo: 7,
+                            courseCode: ' 1007 ',
+                            courseName: ' Applied Chemistry Lab ',
+                            credits: 1,
+                        },
+                        {
+                            siNo: 8,
+                            courseCode: ' 1008 ',
+                            courseName: ' Introduction to IT systems Lab ',
+                            credits: 2,
+                        },
+                        {
+                            siNo: 9,
+                            courseCode: ' 2009 ',
+                            courseName: ' Engineering Workshop Practice ',
+                            credits: 0,
+                        },
+                        {
+                            siNo: 10,
+                            courseCode: ' 1009 ',
+                            courseName: ' Sports and Yoga ',
+                            credits: 1,
+                        },
+                    ],
+                        semester2: [
+                            {
+                                siNo: 1,
+                                courseCode: ' 2002 ',
+                                courseName: ' Mathematics II ',
+                                credits: 4,
+                            },
+                            {
+                                siNo: 2,
+                                courseCode: ' 2003 ',
+                                courseName: ' Applied Physics II ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 3,
+                                courseCode: ' 2001 ',
+                                courseName: ' Environmental Science ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 4,
+                                courseCode: ' 2031 ',
+                                courseName: ' Fundamentals of Electrical & Electronics Engineering ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 5,
+                                courseCode: ' 2081 ',
+                                courseName: ' Electronic Instrumentation ',
+                                credits: 3,
+                            },
+                            {
+                                siNo: 6,
+                                courseCode: ' 2008 ',
+                                courseName: ' Communication Skills in English Lab ',
+                                credits: 1.5,
+                            },
+                            {
+                                siNo: 7,
+                                courseCode: ' 2006 ',
+                                courseName: ' Applied Physics Lab ',
+                                credits: 1,
+                            },
+                            {
+                                siNo: 8,
+                                courseCode: ' 2039 ',
+                                courseName: ' Fundamentals of Eletrical & Electronics Engineering Lab ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 9,
+                                courseCode: ' 2089 ',
+                                courseName: ' Electronic Instrumentation Lab ',
+                                credits: 0,
+                            },
+                            {
+                                siNo: 10,
+                                courseCode: ' 2009 ',
+                                courseName: ' Engineering Workshop Practice ',
+                                credits: 1.5,
+                            },
+                        ],
+                            semester3: [
+                                {
+                                    siNo: 1,
+                                    courseCode: ' 3081 ',
+                                    courseName: ' Digital Circuits and Systems ',
+                                    credits: 3,
+                                },
+                                {
+                                    siNo: 2,
+                                    courseCode: ' 3082 ',
+                                    courseName: ' Sensors and Transducers ',
+                                    credits: 3,
+                                },
+                                {
+                                    siNo: 3,
+                                    courseCode: ' 3083 ',
+                                    courseName: ' Analog Circuits for Instrumentation ',
+                                    credits: 4,
+                                },
+                                {
+                                    siNo: 4,
+                                    courseCode: ' 3084 ',
+                                    courseName: ' Control Engineering ',
+                                    credits: 4,
+                                },
+                                {
+                                    siNo: 5,
+                                    courseCode: ' 3085 ',
+                                    courseName: ' Digital Circuits and Systems Lab ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 6,
+                                    courseCode: ' 3086 ',
+                                    courseName: ' Sensors and Transducers Lab ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 7,
+                                    courseCode: ' 3087 ',
+                                    courseName: ' Analog Circuits Lab for Instrumentation ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 8,
+                                    courseCode: ' 3088 ',
+                                    courseName: ' Maintenance & Calibration Workshop I ',
+                                    credits: 1.5,
+                                },
+                                {
+                                    siNo: 9,
+                                    courseCode: ' 3089 ',
+                                    courseName: ' Product Design & Development Workshop ',
+                                    credits: 0,
+                                },
+                            ],
+                                semester4: [
+                                    {
+                                        siNo: 1,
+                                        courseCode: ' 4081 ',
+                                        courseName: ' Process Variables Measurement ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 2,
+                                        courseCode: ' 4082 ',
+                                        courseName: ' Microcontroller Programming and Applications ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 3,
+                                        courseCode: ' 4083 ',
+                                        courseName: ' Process Control Instrumentation ',
+                                        credits: 4,
+                                    },
+                                    {
+                                        siNo: 4,
+                                        courseCode: ' 4001 ',
+                                        courseName: ' Community Skills in Indian knowledge system ',
+                                        credits: 0,
+                                    },
+                                    {
+                                        siNo: 5,
+                                        courseCode: ' 4084 ',
+                                        courseName: ' Analytical & Biomedical Instruments ',
+                                        credits: 0,
+                                    },
+                                    {
+                                        siNo: 6,
+                                        courseCode: ' 4087 ',
+                                        courseName: ' Process Control Instrumentation Lab ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 7,
+                                        courseCode: ' 4088 ',
+                                        courseName: ' Microcontroller and Interfacing Lab ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 8,
+                                        courseCode: ' 4089 ',
+                                        courseName: ' Maintenance & Calibration Workshop II ',
+                                        credits: 1.5,
+                                    },
+                                    {
+                                        siNo: 9,
+                                        courseCode: ' 4009 ',
+                                        courseName: ' Minor Project ',
+                                        credits: 2,
+                                    },
+                                ],
+                                    semester5: [
+                                        {
+                                            siNo: 1,
+                                            courseCode: ' 5001 ',
+                                            courseName: ' Industrial Management and Safety ',
+                                            credits: 0,
+                                        },
+                                        {
+                                            siNo: 2,
+                                            courseCode: ' 5081 ',
+                                            courseName: ' Industrial Instrumentation ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 3,
+                                            courseCode: ' 5082 ',
+                                            courseName: ' Industrial Automation and Control ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 4,
+                                            courseCode: ' 5083A ',
+                                            courseName: ' Industrial Electronics & Drives ',
+                                            credits: 4,
+                                        },
+                                        {
+                                            siNo: 5,
+                                            courseCode: ' 5087 ',
+                                            courseName: ' Industrial Instruments Lab ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 6,
+                                            courseCode: ' 5088 ',
+                                            courseName: ' Maintenance & Calibration Workshop III ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 7,
+                                            courseCode: ' 5089A ',
+                                            courseName: ' Industrial Electronics & Drives Lab ',
+                                            credits: 1.5,
+                                        },
+                                        {
+                                            siNo: 8,
+                                            courseCode: ' 5008 ',
+                                            courseName: ' Seminar ',
+                                            credits: 1,
+                                        },
+                                        {
+                                            siNo: 9,
+                                            courseCode: ' 6009 ',
+                                            courseName: ' Major Project ',
+                                            credits: 0,
+                                        },
+                                    ],
+                                        semester6: [
+                                            {
+                                                siNo: 1,
+                                                courseCode: ' 6001 ',
+                                                courseName: ' Entrepreneurship and Startup ',
+                                                credits: 4,
+                                            },
+                                            {
+                                                siNo: 2,
+                                                courseCode: ' 6081A ',
+                                                courseName: ' Advanced Biomedical Instrumentation ',
+                                                credits: 5,
+                                            },
+                                            {
+                                                siNo: 3,
+                                                courseCode: ' 6082A ',
+                                                courseName: ' Industrial IoT ',
+                                                credits: 4,
+                                            },
+                                            {
+                                                siNo: 4,
+                                                courseCode: ' 6002 ',
+                                                courseName: ' Indian Constitution ',
+                                                credits: 0,
+                                            },
+                                            {
+                                                siNo: 5,
+                                                courseCode: ' 6087 ',
+                                                courseName: ' Automation Lab ',
+                                                credits: 1.5,
+                                            },
+                                            {
+                                                siNo: 6,
+                                                courseCode: ' 6088 ',
+                                                courseName: ' Analytical & Biomedical Instrumentation Lab ',
+                                                credits: 1.5,
+                                            },
+                                            {
+                                                siNo: 7,
+                                                courseCode: ' 6089 ',
+                                                courseName: ' Virtual Instrumentation Lab ',
+                                                credits: 1.5,
+                                            },
+                                            {
+                                                siNo: 8,
+                                                courseCode: ' 6009 ',
+                                                courseName: ' Major Project ',
+                                                credits: 4,
+                                            },
+                                             ],
+            },
+            department5:{
+                semester1: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 1001 ',
+                        courseName: ' Communication Skills in English ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 1002 ',
+                        courseName: ' Mathematics I ',
+                        credits: 5,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 1003 ',
+                        courseName: ' Applied Physics I ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 1004 ',
+                        courseName: ' Applied Chemistry ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 1005 ',
+                        courseName: ' Engineering Graphics ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 2006 ',
+                        courseName: ' Applied Physics Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 1007 ',
+                        courseName: ' Applied Chemistry Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 1008 ',
+                        courseName: ' Introduction to IT systems Lab ',
+                        credits: 2,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 2009 ',
+                        courseName: ' Engineering Workshop Practice ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 10,
+                        courseCode: ' 1009 ',
+                        courseName: ' Sports and Yoga ',
+                        credits: 1,
+                    },
+                ],
+                semester2: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 2002 ',
+                        courseName: ' Mathematics II ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 2003 ',
+                        courseName: ' Applied Physics II ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 2001 ',
+                        courseName: ' Environmental Science ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 2021 ',
+                        courseName: ' Engineering Mechanics ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 2022 ',
+                        courseName: ' Manufacturing Technology ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 2008 ',
+                        courseName: ' Communication Skills in English Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 2006 ',
+                        courseName: ' Applied Physics Lab ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 2029 ',
+                        courseName: ' Engineering Mechanics Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 2028 ',
+                        courseName: ' Basic CAD Lab ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 10,
+                        courseCode: ' 2009 ',
+                        courseName: ' Engineering Workshop Practice ',
+                        credits: 1.5,
+                    },
+                ],
+                semester3: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 3021 ',
+                        courseName: ' Strength of Materials ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 3022 ',
+                        courseName: ' Material Science and Metrology ',
+                        credits: 3,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 3023 ',
+                        courseName: ' Machine Tools ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 3024 ',
+                        courseName: ' Fundamentals of Electrical Engineering ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 3025 ',
+                        courseName: ' Machine Drawing ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 3026 ',
+                        courseName: ' Material Testing and Metallography Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 3027 ',
+                        courseName: ' Mechanical Workshop III ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 3028 ',
+                        courseName: ' Electrical and Electronics Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 3029 ',
+                        courseName: ' Advanced CADD Lab ',
+                        credits: 0,
+                    },
+                ],
+                semester4: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 4021 ',
+                        courseName: ' Thermal Engineering ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 4022 ',
+                        courseName: ' Fluid Mechanics and Hydraulic Machines ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 4023 ',
+                        courseName: ' Automobile Engineering ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 4001 ',
+                        courseName: ' Community Skills in Indian knowledge system ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 4024 ',
+                        courseName: ' Industrial Engineering ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 4027 ',
+                        courseName: ' Thermal Engineering Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 4028 ',
+                        courseName: ' Fluid Mechanics Lab (Mechanical) ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 4029 ',
+                        courseName: ' Mechanical Workshop IV ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 4009 ',
+                        courseName: ' Minor Project ',
+                        credits: 2,
+                    },
+                ],
+                semester5: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 5001 ',
+                        courseName: ' Industrial Management and Safety ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 5021 ',
+                        courseName: ' Design Of Machine Elements ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 5022 ',
+                        courseName: ' Refrigeration and Air conditioning ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 5023A ',
+                        courseName: ' Modern Production Process ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 5027 ',
+                        courseName: ' Machine Shop Practice ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 5028 ',
+                        courseName: ' Hydraulic Machines Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 5029 ',
+                        courseName: ' Automotive Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 5008 ',
+                        courseName: ' Seminar ',
+                        credits: 1,
+                    },
+                    {
+                        siNo: 9,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 0,
+                    },
+                ],
+                semester6: [
+                    {
+                        siNo: 1,
+                        courseCode: ' 6001 ',
+                        courseName: ' Entrepreneurship and Startup ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 2,
+                        courseCode: ' 6021A ',
+                        courseName: ' Mechatronics ',
+                        credits: 5,
+                    },
+                    {
+                        siNo: 3,
+                        courseCode: ' 6022A ',
+                        courseName: ' Computer Aided Design and Manufacturing ',
+                        credits: 4,
+                    },
+                    {
+                        siNo: 4,
+                        courseCode: ' 6002 ',
+                        courseName: ' Indian Constitution ',
+                        credits: 0,
+                    },
+                    {
+                        siNo: 5,
+                        courseCode: ' 6027 ',
+                        courseName: ' Production Software Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 6,
+                        courseCode: ' 6028 ',
+                        courseName: ' Refrigeration and Airconditioning Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 7,
+                        courseCode: ' 6029 ',
+                        courseName: ' Advanced Machine Tools Lab ',
+                        credits: 1.5,
+                    },
+                    {
+                        siNo: 8,
+                        courseCode: ' 6009 ',
+                        courseName: ' Major Project ',
+                        credits: 4,
+                    },
+                ],
             }
+            // Add more departments as needed
+        };
 
-            document.getElementById('errorMessage').textContent = '';
+        function createInputFields() {
+            const selectedDepartment = document.getElementById('department').value;
+            const selectedSemester = document.getElementById('semester').value;
+            const courses = courseDetails[selectedDepartment][selectedSemester];
 
             let inputFields = '';
 
-            for (let i = 1; i <= numSubjects; i++) {
+            courses.forEach((course, index) => {
                 inputFields += `
-                <div class="form-row">
-                    <div class="col-md-6 form-group">
-                        <label for="credit${i}" style="color:blue;">Subject ${i} Credit:</label>
-                        <input type="number" class="form-control" id="credit${i}" placeholder="Enter credit">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label for="grade${i}" style="color:red;">Subject ${i} Grade:</label>
-                        <select class="form-control" id="grade${i}">
-                            <option value="S">S</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="E">E</option>
-                            <option value="D">D</option>
-                            <option value="F">F</option>
-                        </select>
-                    </div>
-                </div>
-                `;
-            }
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label for="credit${index}" style="color:blue;">${course.courseName} (${course.courseCode}) Credit:</label>
+                <input type="number" class="form-control" id="credit${index}" placeholder="Enter credit" value="${course.credits}">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="grade${index}" style="color:red;">${course.courseName}(${course.courseCode}) Grade:</label>
+                <select class="form-control" id="grade${index}">
+                    <option value="S">S</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                </select>
+            </div>
+        </div>
+        `;
+            });
 
             document.getElementById('subjectDetails').innerHTML = inputFields;
         }
+
 
         function clearInputFields() {
             document.getElementById('subjectDetails').innerHTML = '';
             document.getElementById('result').innerHTML = '';
         }
-        
+
         function calculateCGPA() {
-            const numSubjects = parseInt(document.getElementById('numSubjects').value);
+            const selectedDepartment = document.getElementById('department').value;
+            const selectedSemester = document.getElementById('semester').value;
+            const courses = courseDetails[selectedDepartment][selectedSemester];
+
             let totalCredits = 0;
             let totalSubjectScore = 0;
+            let invalidInput = false;
 
-            for (let i = 1; i <= numSubjects; i++) {
-                const credit = parseInt(document.getElementById(`credit${i}`).value);
-                const grade = document.getElementById(`grade${i}`).value.toUpperCase();
+            courses.forEach((course, index) => {
+                const creditInput = document.getElementById(`credit${index}`);
+                const gradeInput = document.getElementById(`grade${index}`);
+
+                // Parse credit and validate
+                const credit = parseFloat(creditInput.value);
+                if (isNaN(credit) || credit < 0) {
+                    alert(`Invalid credit value for ${course.courseName} (${course.courseCode}). Please enter a valid positive number.`);
+                    invalidInput = true;
+                    return;
+                }
+
+                // Validate and calculate grade score
+                const grade = gradeInput.value.toUpperCase();
                 let gradeScore = 0;
 
                 switch (grade) {
@@ -239,10 +2081,19 @@
                     case 'F':
                         gradeScore = 4;
                         break;
+                    default:
+                        alert(`Invalid grade for ${course.courseName} (${course.courseCode}). Please select a valid grade.`);
+                        invalidInput = true;
+                        return;
                 }
 
                 totalCredits += credit;
                 totalSubjectScore += credit * gradeScore;
+            });
+
+            if (invalidInput) {
+                // If there was invalid input, don't calculate CGPA
+                return;
             }
 
             const cgpa = totalSubjectScore / totalCredits;
@@ -250,14 +2101,15 @@
 
             // Display CGPA result in the modal
             document.getElementById('result').innerHTML = `
-            <h2 class="text-center">CGPA: ${cgpa.toFixed(2)}</h2>
-            <h2 class="text-center">Percentage: ${percentage.toFixed(2)}%</h2>
-            `;
+        <h2 class="text-center">CGPA: ${cgpa.toFixed(2)}</h2>
+        <h2 class="text-center">Percentage: ${percentage.toFixed(2)}%</h2>
+    `;
 
             // Show the result modal
             $('#resultModal').modal('show');
         }
+
     </script>
 </body>
-  </html>
-  
+
+</html>
