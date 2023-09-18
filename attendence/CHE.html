@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Absentees List Printer for S5 CHE</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom CSS styles here */
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        #resultTextArea {
+            width: 100%;
+            height: 200px;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Absentees List Printer for S5 CHE</h1>
+        <form id="absenteesForm">
+            <div class="form-group">
+                <p>Class strength is 47</p>
+                <label for="rollNumbers">Enter Absentee Roll Numbers (comma-separated):</label>
+                <input type="text" class="form-control" id="rollNumbers" required>
+                <div id="errorMessages" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+        <h2>Absentees:</h2>
+        <div class="form-group">
+            <textarea id="resultTextArea" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <button id="copyButton" class="btn btn-success" disabled>Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('absenteesForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const rollNumbersInput = document.getElementById('rollNumbers');
+            const errorMessages = document.getElementById('errorMessages');
+            const rollNumbers = rollNumbersInput.value.split(',');
+const studentData = [
+    {"student_name": "ADARSH RAMESHAN", "roll_No": 1},
+    {"student_name": "ADISHIVA S", "roll_No": 2},
+    {"student_name": "ADITHYAN S", "roll_No": 3},
+    {"student_name": "AISWARYA T H", "roll_No": 4},
+    {"student_name": "AJAS MON. H", "roll_No": 5},
+    {"student_name": "AJAY K MON", "roll_No": 6},
+    {"student_name": "AKSHAR GITA NAND", "roll_No": 7},
+    {"student_name": "ALWIN JAMES", "roll_No": 8},
+    {"student_name": "AMALDEV V", "roll_No": 9},
+    {"student_name": "ARCHANA UDAYAPPAN", "roll_No": 10},
+    {"student_name": "ASWIN S", "roll_No": 11},
+    {"student_name": "BIDHUL BINOY", "roll_No": 12},
+    {"student_name": "JAYASANKAR P S", "roll_No": 13},
+    {"student_name": "JISHNU MADHU", "roll_No": 14},
+    {"student_name": "KARAN K BINU", "roll_No": 15},
+    {"student_name": "KIRAN KRISHNA", "roll_No": 16},
+    {"student_name": "KIRAN V", "roll_No": 17},
+    {"student_name": "KRISHNAPRASAD P P", "roll_No": 18},
+    {"student_name": "MANU M PILLAI", "roll_No": 19},
+    {"student_name": "SANJU GIREESH", "roll_No": 20},
+    {"student_name": "SIVAKIRAN MG", "roll_No": 21},
+    {"student_name": "SNEHAMOL J", "roll_No": 22},
+    {"student_name": "SRAVAN S", "roll_No": 23},
+    {"student_name": "SREEKUMAR.R.", "roll_No": 24},
+    {"student_name": "SREELESH V.P", "roll_No": 25},
+    {"student_name": "SREERAG. S", "roll_No": 26},
+    {"student_name": "SYAMLAL", "roll_No": 27},
+    {"student_name": "UNNIKRISHNAN. R", "roll_No": 28},
+    {"student_name": "VIDUL KRISHNA", "roll_No": 29},
+    {"student_name": "YADUKRISHNA.K.S", "roll_No": 30},
+    {"student_name": "ABHIRAMMI BOSE", "roll_No": 31},
+    {"student_name": "ADITHYA DEV", "roll_No": 32},
+    {"student_name": "ADITHYAN A P", "roll_No": 33},
+    {"student_name": "AKSHAY UDAYAN", "roll_No": 34},
+    {"student_name": "ARUNKUMAR S", "roll_No": 35},
+    {"student_name": "ASWATHY BABU", "roll_No": 36},
+    {"student_name": "FATHIMA SHAJUDEEN", "roll_No": 37},
+    {"student_name": "JENEEV VINCENT", "roll_No": 38},
+    {"student_name": "MIDHUN R", "roll_No": 39},
+    {"student_name": "SAM GEORGE M J", "roll_No": 40},
+    {"student_name": "UNNIKRISHNAN V", "roll_No": 41},
+    {"student_name": "VARUN V", "roll_No": 42},
+    {"student_name": "VISWAS Y", "roll_No": 43},
+    {"student_name": "AMALKRISHNA NM", "roll_No": 44},
+    {"student_name": "ASWIN KB", "roll_No": 45},
+    {"student_name": "MUNEER MUBASH", "roll_No": 46},
+    {"student_name": "PRANAV V ANIL", "roll_No": 47}
+];
+            
+
+            const absenteesList = [];
+            const absenteesNotFound = [];
+
+            for (const rollNumber of rollNumbers) {
+                const student = studentData.find(s => s.roll_No === parseInt(rollNumber));
+                if (student) {
+                    absenteesList.push(`${student.roll_No} - ${student.student_name}`);
+                } else {
+                    absenteesNotFound.push(rollNumber);
+                }
+            }
+
+            if (absenteesNotFound.length > 0) {
+                errorMessages.textContent = `Error: Roll Numbers not found - ${absenteesNotFound.join(', ')}`;
+                errorMessages.style.display = 'block';
+                resultTextArea.style.display = 'none';
+                copyButton.style.display = 'none';
+                return; // Don't proceed if there are errors
+            } else {
+                errorMessages.style.display = 'none'; // Clear any previous errors
+                resultTextArea.style.display = 'block';
+                copyButton.style.display = 'block';
+            }
+
+            // Sort the absentees by roll number
+            absenteesList.sort((a, b) => {
+                const rollA = parseInt(a.split(' - ')[0]);
+                const rollB = parseInt(b.split(' - ')[0]);
+                return rollA - rollB;
+            });
+
+            const currentDate = new Date();
+            const formattedDate = currentDate.toDateString();
+            
+            const absenteesText = `*Absentees on -${formattedDate}:*\n\n${absenteesList.join('\n')}`;
+
+            // Display the result in the text area
+            resultTextArea.textContent = absenteesText;
+
+            // Enable the copy button and change its text
+            copyButton.disabled = false;
+            copyButton.textContent = 'Copy to Clipboard';
+
+            // Add click event listener to copy the text to clipboard
+            copyButton.addEventListener('click', function () {
+                resultTextArea.select();
+                document.execCommand('copy');
+                copyButton.textContent = 'Copied!';
+            });
+        });
+    </script>
+</body>
+</html>
