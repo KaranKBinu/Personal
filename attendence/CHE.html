@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Absentees List Printer for S5 CHE</title>
+    <title>Absentees List Printer</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -14,7 +15,8 @@
             max-width: 600px;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             text-align: center;
         }
 
@@ -32,13 +34,22 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Absentees List Printer for S5 CHE</h1>
+        <h1>Absentees List Printer</h1>
         <form id="absenteesForm">
             <div class="form-group">
-                <p>Class strength is 47</p>
-                <label for="rollNumbers">Enter Absentee Roll Numbers (comma-separated):</label>
+                <label for="semester">Select Semester:</label>
+                <select class="form-control" id="semester">
+                    <option value="sem-1">Semester 1</option>
+                    <option value="sem-3">Semester 3</option>
+                    <option value="sem-5" selected>Semester 5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <strong><p id="classStrength"></p></strong>
+                <label for="rollNumbers">Enter Absentee Roll Numbers <strong>(comma-separated):</strong> </label>
                 <input type="text" class="form-control" id="rollNumbers" required>
                 <div id="errorMessages" class="error-message"></div>
             </div>
@@ -57,113 +68,175 @@
     </div>
 
     <script>
-        document.getElementById('absenteesForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+         document.getElementById('absenteesForm').addEventListener('submit', function (e) {
+                e.preventDefault();
 
-            const rollNumbersInput = document.getElementById('rollNumbers');
-            const errorMessages = document.getElementById('errorMessages');
-            const rollNumbers = rollNumbersInput.value.split(',');
-const studentData = [
-    {"student_name": "ADARSH RAMESHAN", "roll_No": 1},
-    {"student_name": "ADISHIVA S", "roll_No": 2},
-    {"student_name": "ADITHYAN S", "roll_No": 3},
-    {"student_name": "AISWARYA T H", "roll_No": 4},
-    {"student_name": "AJAS MON. H", "roll_No": 5},
-    {"student_name": "AJAY K MON", "roll_No": 6},
-    {"student_name": "AKSHAR GITA NAND", "roll_No": 7},
-    {"student_name": "ALWIN JAMES", "roll_No": 8},
-    {"student_name": "AMALDEV V", "roll_No": 9},
-    {"student_name": "ARCHANA UDAYAPPAN", "roll_No": 10},
-    {"student_name": "ASWIN S", "roll_No": 11},
-    {"student_name": "BIDHUL BINOY", "roll_No": 12},
-    {"student_name": "JAYASANKAR P S", "roll_No": 13},
-    {"student_name": "JISHNU MADHU", "roll_No": 14},
-    {"student_name": "KARAN K BINU", "roll_No": 15},
-    {"student_name": "KIRAN KRISHNA", "roll_No": 16},
-    {"student_name": "KIRAN V", "roll_No": 17},
-    {"student_name": "KRISHNAPRASAD P P", "roll_No": 18},
-    {"student_name": "MANU M PILLAI", "roll_No": 19},
-    {"student_name": "SANJU GIREESH", "roll_No": 20},
-    {"student_name": "SIVAKIRAN MG", "roll_No": 21},
-    {"student_name": "SNEHAMOL J", "roll_No": 22},
-    {"student_name": "SRAVAN S", "roll_No": 23},
-    {"student_name": "SREEKUMAR.R.", "roll_No": 24},
-    {"student_name": "SREELESH V.P", "roll_No": 25},
-    {"student_name": "SREERAG. S", "roll_No": 26},
-    {"student_name": "SYAMLAL", "roll_No": 27},
-    {"student_name": "UNNIKRISHNAN. R", "roll_No": 28},
-    {"student_name": "VIDUL KRISHNA", "roll_No": 29},
-    {"student_name": "YADUKRISHNA.K.S", "roll_No": 30},
-    {"student_name": "ABHIRAMMI BOSE", "roll_No": 31},
-    {"student_name": "ADITHYA DEV", "roll_No": 32},
-    {"student_name": "ADITHYAN A P", "roll_No": 33},
-    {"student_name": "AKSHAY UDAYAN", "roll_No": 34},
-    {"student_name": "ARUNKUMAR S", "roll_No": 35},
-    {"student_name": "ASWATHY BABU", "roll_No": 36},
-    {"student_name": "FATHIMA SHAJUDEEN", "roll_No": 37},
-    {"student_name": "JENEEV VINCENT", "roll_No": 38},
-    {"student_name": "MIDHUN R", "roll_No": 39},
-    {"student_name": "SAM GEORGE M J", "roll_No": 40},
-    {"student_name": "UNNIKRISHNAN V", "roll_No": 41},
-    {"student_name": "VARUN V", "roll_No": 42},
-    {"student_name": "VISWAS Y", "roll_No": 43},
-    {"student_name": "AMALKRISHNA NM", "roll_No": 44},
-    {"student_name": "ASWIN KB", "roll_No": 45},
-    {"student_name": "MUNEER MUBASH", "roll_No": 46},
-    {"student_name": "PRANAV V ANIL", "roll_No": 47}
-];
-            
+                const rollNumbersInput = document.getElementById('rollNumbers');
+                const semesterSelect = document.getElementById('semester');
+                const classStrength = document.getElementById('classStrength');
+                const errorMessages = document.getElementById('errorMessages');
+                const rollNumbers = rollNumbersInput.value.split(',');
+                const selectedSemester = semesterSelect.value;
 
-            const absenteesList = [];
-            const absenteesNotFound = [];
+            const studentData = {
+                "sem-1": [
+                    // Add students for Semester 1
+                ],
+                "sem-3": [
+                     { "student_name": "ABHIJITH K R", "roll_No": 1 },
+                    { "student_name": "AKHIL ANTONY", "roll_No": 2 },
+                    { "student_name": "BHAGATH V N A", "roll_No": 3 },
+                    { "student_name": "JAFIS K A", "roll_No": 4 },
+                    { "student_name": "SHAN SHAJI", "roll_No": 5 },
+                    { "student_name": "AARJITH S", "roll_No": 6 },
+                    { "student_name": "ADITHYAN P S", "roll_No": 7 },
+                    { "student_name": "ADITHYAN.S", "roll_No": 8 },
+                    { "student_name": "AFSAL N", "roll_No": 9 },
+                    { "student_name": "AJINSHA S", "roll_No": 10 },
+                    { "student_name": "AJMAL AFSAL", "roll_No": 11 },
+                    { "student_name": "AKASH . S", "roll_No": 12 },
+                    { "student_name": "AKHIL BIJU", "roll_No": 13 },
+                    { "student_name": "AKSHAY THOMAS", "roll_No": 14 },
+                    { "student_name": "AKSHAY VARGHESE", "roll_No": 15 },
+                    { "student_name": "AL AMEEN S", "roll_No": 16 },
+                    { "student_name": "ALAN P S", "roll_No": 17 },
+                    { "student_name": "AMAL RAJ .K", "roll_No": 18 },
+                    { "student_name": "AMEER SUHAIL V S", "roll_No": 19 },
+                    { "student_name": "ANANDAKRISHNAN M S", "roll_No": 20 },
+                    { "student_name": "ANEENDRA SAJI", "roll_No": 21 },
+                    { "student_name": "ANOOP M", "roll_No": 22 },
+                    { "student_name": "ARJUN PUSHPAKARAN", "roll_No": 23 },
+                    { "student_name": "ASHIK.H", "roll_No": 24 },
+                    { "student_name": "ASWIN KRISHNA. K", "roll_No": 25 },
+                    { "student_name": "ATHULKRISHNA B", "roll_No": 26 },
+                    { "student_name": "AUGUSTINE S KONIKKARA", "roll_No": 27 },
+                    { "student_name": "BOBYRAJ B S", "roll_No": 28 },
+                    { "student_name": "DEVANANDA S", "roll_No": 29 },
+                    { "student_name": "GOWTHAM SHAJI", "roll_No": 30 },
+                    { "student_name": "HARISHANKAR J", "roll_No": 31 },
+                    { "student_name": "HAROON ANSHAD", "roll_No": 32 },
+                    { "student_name": "PRANAV K P", "roll_No": 33 },
+                    { "student_name": "ROSHAN BABURAJ", "roll_No": 34 },
+                    { "student_name": "RYAN MARTIN", "roll_No": 35 },
+                    { "student_name": "SIVASANKARAN S", "roll_No": 36 },
+                    { "student_name": "SUBINA SUBAIR", "roll_No": 37 },
+                    { "student_name": "VIVEK . R", "roll_No": 38 },
+                    { "student_name": "ABHIMANUE S", "roll_No": 39 },
+                    { "student_name": "ABHINAND KS", "roll_No": 40 },
+                    { "student_name": "ABHINAV S", "roll_No": 41 },
+                    { "student_name": "ANAND B", "roll_No": 42 },
+                    { "student_name": "ARUN MS", "roll_No": 43 },
+                    { "student_name": "INDRAJITH S", "roll_No": 44 },
+                    { "student_name": "KIRAN KR", "roll_No": 45 },
+                    { "student_name": "PAULSON KR", "roll_No": 46 },
+                    { "student_name": "RAHUL R", "roll_No": 47 },
+                    { "student_name": "SANEESH KUMAR S", "roll_No": 48 },
+                    { "student_name": "ARJUNDETH S", "roll_No": 49 }
+                ],
+                "sem-5": [
+                    { "student_name": "ADARSH RAMESHAN", "roll_No": 1 },
+                    { "student_name": "ADISHIVA S", "roll_No": 2 },
+                    { "student_name": "ADITHYAN S", "roll_No": 3 },
+                    { "student_name": "AISWARYA T H", "roll_No": 4 },
+                    { "student_name": "AJAS MON. H", "roll_No": 5 },
+                    { "student_name": "AJAY K MON", "roll_No": 6 },
+                    { "student_name": "AKSHAR GITA NAND", "roll_No": 7 },
+                    { "student_name": "ALWIN JAMES", "roll_No": 8 },
+                    { "student_name": "AMALDEV V", "roll_No": 9 },
+                    { "student_name": "ARCHANA UDAYAPPAN", "roll_No": 10 },
+                    { "student_name": "ASWIN S", "roll_No": 11 },
+                    { "student_name": "BIDHUL BINOY", "roll_No": 12 },
+                    { "student_name": "JAYASANKAR P S", "roll_No": 13 },
+                    { "student_name": "JISHNU MADHU", "roll_No": 14 },
+                    { "student_name": "KARAN K BINU", "roll_No": 15 },
+                    { "student_name": "KIRAN KRISHNA", "roll_No": 16 },
+                    { "student_name": "KIRAN V", "roll_No": 17 },
+                    { "student_name": "KRISHNAPRASAD P P", "roll_No": 18 },
+                    { "student_name": "MANU M PILLAI", "roll_No": 19 },
+                    { "student_name": "SANJU GIREESH", "roll_No": 20 },
+                    { "student_name": "SIVAKIRAN MG", "roll_No": 21 },
+                    { "student_name": "SNEHAMOL J", "roll_No": 22 },
+                    { "student_name": "SRAVAN S", "roll_No": 23 },
+                    { "student_name": "SREEKUMAR.R.", "roll_No": 24 },
+                    { "student_name": "SREELESH V.P", "roll_No": 25 },
+                    { "student_name": "SREERAG. S", "roll_No": 26 },
+                    { "student_name": "SYAMLAL", "roll_No": 27 },
+                    { "student_name": "UNNIKRISHNAN. R", "roll_No": 28 },
+                    { "student_name": "VIDUL KRISHNA", "roll_No": 29 },
+                    { "student_name": "YADUKRISHNA.K.S", "roll_No": 30 },
+                    { "student_name": "ABHIRAMMI BOSE", "roll_No": 31 },
+                    { "student_name": "ADITHYA DEV", "roll_No": 32 },
+                    { "student_name": "ADITHYAN A P", "roll_No": 33 },
+                    { "student_name": "AKSHAY UDAYAN", "roll_No": 34 },
+                    { "student_name": "ARUNKUMAR S", "roll_No": 35 },
+                    { "student_name": "ASWATHY BABU", "roll_No": 36 },
+                    { "student_name": "FATHIMA SHAJUDEEN", "roll_No": 37 },
+                    { "student_name": "JENEEV VINCENT", "roll_No": 38 },
+                    { "student_name": "MIDHUN R", "roll_No": 39 },
+                    { "student_name": "SAM GEORGE M J", "roll_No": 40 },
+                    { "student_name": "UNNIKRISHNAN V", "roll_No": 41 },
+                    { "student_name": "VARUN V", "roll_No": 42 },
+                    { "student_name": "VISWAS Y", "roll_No": 43 },
+                    { "student_name": "AMALKRISHNA NM", "roll_No": 44 },
+                    { "student_name": "ASWIN KB", "roll_No": 45 },
+                    { "student_name": "MUNEER MUBASH", "roll_No": 46 },
+                    { "student_name": "PRANAV V ANIL", "roll_No": 47 }
+                ]
+            };
 
-            for (const rollNumber of rollNumbers) {
-                const student = studentData.find(s => s.roll_No === parseInt(rollNumber));
-                if (student) {
-                    absenteesList.push(`${student.roll_No} - ${student.student_name}`);
-                } else {
-                    absenteesNotFound.push(rollNumber);
-                }
-            }
+            const semesterStudents = studentData[selectedSemester]; // Get students for the selected semester
 
-            if (absenteesNotFound.length > 0) {
-                errorMessages.textContent = `Error: Roll Numbers not found - ${absenteesNotFound.join(', ')}`;
-                errorMessages.style.display = 'block';
-                resultTextArea.style.display = 'none';
-                copyButton.style.display = 'none';
-                return; // Don't proceed if there are errors
-            } else {
-                errorMessages.style.display = 'none'; // Clear any previous errors
-                resultTextArea.style.display = 'block';
-                copyButton.style.display = 'block';
-            }
+             // Set the class strength for the selected semester
+             classStrength.textContent = `Class strength for Semester ${selectedSemester.split('-')[1]} is ${semesterStudents.length}`;
 
-            // Sort the absentees by roll number
-            absenteesList.sort((a, b) => {
-                const rollA = parseInt(a.split(' - ')[0]);
-                const rollB = parseInt(b.split(' - ')[0]);
-                return rollA - rollB;
-            });
+             const absenteesList = [];
+             const absenteesNotFound = [];
 
-            const currentDate = new Date();
-            const formattedDate = currentDate.toDateString();
-            
-            const absenteesText = `*Absentees on -${formattedDate}:*\n\n${absenteesList.join('\n')}`;
+             for (const rollNumber of rollNumbers) {
+                 const student = semesterStudents.find(s => s.roll_No === parseInt(rollNumber));
+                 if (student) {
+                     absenteesList.push(`${student.roll_No} - ${student.student_name}`);
+                 } else {
+                     absenteesNotFound.push(rollNumber);
+                 }
+             }
 
-            // Display the result in the text area
-            resultTextArea.textContent = absenteesText;
+             if (absenteesNotFound.length > 0) {
+                 errorMessages.textContent = `Error: Roll Numbers not found - ${absenteesNotFound.join(', ')}`;
+                 errorMessages.style.display = 'block';
+                 resultTextArea.style.display = 'none';
+                 copyButton.style.display = 'none';
+                 return;
+             } else {
+                 errorMessages.style.display = 'none';
+                 resultTextArea.style.display = 'block';
+                 copyButton.style.display = 'block';
+             }
 
-            // Enable the copy button and change its text
-            copyButton.disabled = false;
-            copyButton.textContent = 'Copy to Clipboard';
+             // Sort the absentees by roll number
+             absenteesList.sort((a, b) => {
+                 const rollA = parseInt(a.split(' - ')[0]);
+                 const rollB = parseInt(b.split(' - ')[0]);
+                 return rollA - rollB;
+             });
 
-            // Add click event listener to copy the text to clipboard
-            copyButton.addEventListener('click', function () {
-                resultTextArea.select();
-                document.execCommand('copy');
-                copyButton.textContent = 'Copied!';
-            });
-        });
+             const currentDate = new Date();
+             const formattedDate = currentDate.toDateString();
+
+             const absenteesText = `*Absentees on - ${formattedDate}:*\n\n${absenteesList.join('\n')}`;
+
+             resultTextArea.textContent = absenteesText;
+
+             copyButton.disabled = false;
+             copyButton.textContent = 'Copy to Clipboard';
+
+             copyButton.addEventListener('click', function () {
+                 resultTextArea.select();
+                 document.execCommand('copy');
+                 copyButton.textContent = 'Copied!';
+             });
+         });
     </script>
 </body>
+
 </html>
