@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGPA Calculator</title>
+    <!-- Add Bootstrap CSS link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="cgpastyles.css">
     <style>
         /* Custom CSS for styling */
         body {
@@ -51,80 +52,80 @@
             margin-left: 0;
         }
         body {
-  font-family: sans-serif;
+            font-family: sans-serif;
         }
-        
+
         .container {
-          max-width: 960px;
-          margin: 0 auto;
+            max-width: 960px;
+            margin: 0 auto;
         }
-        
+
         h1 {
-          font-size: 2em;
-          margin-top: 0;
+            font-size: 2em;
+            margin-top: 0;
         }
-        
+
         h2 {
-          font-size: 1.5em;
+            font-size: 1.5em;
         }
-        
+
         h3 {
-          font-size: 1.2em;
+            font-size: 1.2em;
         }
-        
+
         p {
-          line-height: 1.5em;
+            line-height: 1.5em;
         }
-        
+
         form {
-          margin-top: 2em;
+            margin-top: 2em;
         }
-        
+
         .form-group {
-          margin-bottom: 1em;
+            margin-bottom: 1em;
         }
-        
+
         .form-control {
-          width: 100%;
-          padding: 0.5em;
-          border: 1px solid #ccc;
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
         }
-        
+
         .btn {
-          margin-top: 1em;
+            margin-top: 1em;
         }
-        
+
         .modal {
-          padding: 2em;
+            padding: 2em;
         }
-        
+
         .modal-title {
-          font-size: 1.5em;
+            font-size: 1.5em;
         }
-        
+
         .modal-body {
-          font-size: 1em;
+            font-size: 1em;
         }
         .btn-success {
-          background-color: #5cb85c;
-          border-color: #5cb85c;
+            background-color: #5cb85c;
+            border-color: #5cb85c;
         }
-        
+
         .btn-danger {
-          background-color: #d9534f;
-          border-color: #d9534f;
+            background-color: #d9534f;
+            border-color: #d9534f;
         }
-        
+
         .modal-header {
-          background-color: #eee;
+            background-color: #eee;
         }
-        
+
         .modal-title {
-          color: #000;
+            color: #000;
         }
-        
+
         .modal-body {
-          color: #000;
+            color: #000;
         }
 
     </style>
@@ -196,49 +197,54 @@
     </div>
     <br>
     <hr>
-    <div class="container">
-        <h2>How to Calculate CGPA - Step by Step Guide</h2>
-        <p>Created by Karan K Binu</p>
-        <p>For any questions or comments, contact me at <a href="mailto:karankbinu2004@gmail.com">Gmail</a></p>
+        <div class="container">
+            <h2 style="color: #3498db; font-size: 28px; font-weight: bold; margin-bottom: 20px;">How to Calculate CGPA - Step by
+                Step Guide</h2>
+            <p>Created by <a href="mailto:karankbinu2004@gmail.com">Karan K Binu</a></p>
+            <p style="font-size: 16px; margin-bottom: 10px;">For any questions or comments, contact me at <a
+                    href="mailto:karankbinu2004@gmail.com" style="color: #e74c3c;">Gmail</a></p>
+        
+            <ol style="font-size: 16px; margin-left: 20px;">
+                <li>
+                    <p><strong style="color: #2c3e50;">NOTE:</strong>  <span style="color:red;">If you do not have a subject, Untick the checkbox </span></p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 1:</strong> Begin by selecting your department and semester from the
+                        dropdown lists.</p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 2:</strong> Click the "Enter" button to generate input fields for
+                        your selected department and semester. Subjects will be automatically populated based on your selection.
+                    </p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 3:</strong> For each subject, enter the following information:</p>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong style="color: #2c3e50;">Credit:</strong> Ensure the credit value for the subject is valid (a
+                            positive number) in the provided field.</li>
+                        <li><strong style="color: #2c3e50;">Grade:</strong> Choose the grade you received for the subject from
+                            the dropdown list.</li>
+                    </ul>
+                    <p style="color: #e74c3c;">Repeat this step for all subjects you want to include in the calculation.</p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 4:</strong> Once you have entered the details for all subjects,
+                        click the "Calculate CGPA" button.</p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 5:</strong> The calculated CGPA and percentage will be displayed in
+                        a modal window.</p>
+                </li>
+                <li>
+                    <p><strong style="color: #2c3e50;">Step 6:</strong> You can opt to clear the input fields by clicking the
+                        "Clear" button for a fresh calculation or make adjustments and recalculate your CGPA as needed.</p>
+                </li>
+            </ol>
+        
+            <p style="font-size: 18px; color: #e74c3c; font-weight: bold; margin-top: 20px;">That's it! You've successfully
+                calculated your CGPA using the CGPA Calculator.</p>
+        </div>
 
-        <ol>
-            <li>
-                <p><strong>NOTE:</strong> if you do not have a subject then leave it as it is.</p>
-                <p><strong>Step 1:</strong> Begin by selecting your department and semester from the dropdown lists.</p>
-            </li>
-            <li>
-                <p><strong>Step 2:</strong> Click the "Enter" button to generate input fields for your selected
-                    department and
-                    semester. Subjects will be automatically populated based on your selection.</p>
-            </li>
-            <li>
-                <p><strong>Step 3:</strong> For each subject, enter the following information:</p>
-                <ul>
-                    <li><strong>Credit:</strong> Ensure the credit value for the subject is valid (a positive number) in
-                        the
-                        provided field.</li>
-                    <li><strong>Grade:</strong> Choose the grade you received for the subject from the dropdown list.
-                    </li>
-                </ul>
-                <p>Repeat this step for all subjects you want to include in the calculation.</p>
-            </li>
-            <li>
-                <p><strong>Step 4:</strong> Once you have entered the details for all subjects, click the "Calculate
-                    CGPA"
-                    button.</p>
-            </li>
-            <li>
-                <p><strong>Step 5:</strong> The calculated CGPA and percentage will be displayed in a modal window.</p>
-            </li>
-            <li>
-                <p><strong>Step 6:</strong> You can opt to clear the input fields by clicking the "Clear" button for a
-                    fresh
-                    calculation, or make adjustments and recalculate your CGPA as needed.</p>
-            </li>
-        </ol>
-
-        <p>That's it! You've successfully calculated your CGPA using the CGPA Calculator.</p>
-    </div>
 
 
 
