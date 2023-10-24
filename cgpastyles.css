@@ -1,0 +1,168 @@
+
+        /* Custom CSS for styling */
+        body {
+            background-color: #f2f2f2 ;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #calcbtn {
+            margin-top: 20px;
+        }
+
+        /* Custom CSS for Result Modal */
+        #resultModal .modal-dialog {
+            max-width: 80%;
+            margin: 0 auto;
+            margin-top: 10%;
+        }
+
+        #resultModal .modal-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #resultModal .modal-title {
+            text-align: center;
+            font-size: 24px;
+            margin-left: 0;
+        }
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.2em;
+        }
+
+        p {
+            line-height: 1.5em;
+        }
+
+        form {
+            margin-top: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5em;
+            border: 1.5px solid #0084fc;
+            font-size: 18px;
+        }
+
+        .btn {
+            margin-top: 1em;
+        }
+
+        .modal {
+            padding: 2em;
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+        }
+
+        .modal-body {
+            font-size: 1em;
+        }
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #5cb85c;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+
+        .modal-header {
+            background-color: #eee;
+        }
+
+        .modal-title {
+            color: #000;
+        }
+
+        .modal-body {
+            color: #000;
+        }
+        footer {
+                text-align: center;
+                background-color: rgb(248, 248, 248); /* Background color */
+                color: #fff; /* Text color */
+                padding: 10px 0; /* Padding at the top and bottom */
+                position: relative;
+                bottom: 0; /* Stick to the bottom of the page */
+                width: 100%; /* Full width */
+                color:black;
+            }
+         input[type="checkbox"] {
+                margin-top:16px;
+                width: 20px;
+                height: 20px; 
+                border: 2px solid #4af5ff; 
+                box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+                cursor: pointer; 
+            }
+                /* Style odd rows */
+    .form-row:nth-child(odd) {
+        color: #000000;
+        background-color: #ffffff; /* Background color for odd rows */
+        border: 1px solid #000; /* Border for odd rows */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 3px 3px 5px #888; /* Add shadow to odd rows */
+        margin-top: 10px; /* Adjust margin as needed */
+        transition: transform 0.2s; /* Add scaling effect transition */
+    }
+
+    /* Style even rows */
+    .form-row:nth-child(even) {
+        color: #000;
+        background-color: #ffffff; /* Background color for even rows */
+        border: 1px solid #000; /* Border for even rows */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 3px 3px 5px #888; /* Add shadow to even rows */
+        margin-top: 10px; /* Adjust margin as needed */
+        transition: transform 0.2s; /* Add scaling effect transition */
+    }
+
+    /* Add hover effect on scaling */
+    .form-row:hover {
+        transform: scale(1.05); /* Scale up on hover */
+    }
+    .cgpaCalc{
+      background-color: #e9dfd5;
+      padding-bottom: 30px;
+    }
