@@ -2499,7 +2499,7 @@ function createInputFields() {
   const selectedDepartment = document.getElementById("department").value;
   const selectedSemester = document.getElementById("semester").value;
   const courses = courseDetails[selectedDepartment][selectedSemester];
-
+  document.getElementById('sittrlink').style.display = 'block';
   let inputFields = "";
 
   courses.forEach((course, index) => {
@@ -2743,12 +2743,12 @@ document
     // Append custom field to the list
     const subjectDetails = document.getElementById("subjectDetails");
     const customFieldHtml = `
-    <div class="form-row">
+    <div class="form-row" style='min-height:150px;align-items:center;'>
         <div class="col-md-6">
-            <p class="course-info">${name} (Custom) Credit: <span class="course-credit">${credit}</span></p>
+            <p class="course-info" style='font-weight:28px;'>${name} (${code})\n Credit: <span class="course-credit">${credit}</span></p>
         </div>
         <div class="col-md-6 form-group">
-            <label class="course-info">${name} (Custom) Grade: ${grade}</label>
+            <label class="course-info" style='font-weight:25px;'>${name} Grade: <b>${grade}</b></label>
         </div>
     </div>
 `;
