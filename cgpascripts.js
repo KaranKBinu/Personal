@@ -288,6 +288,30 @@ const courseDetails = {
       },
       {
         siNo: 9,
+        code: " 5159A ",
+        name: " Web programming",
+        credits: 4,
+      },
+      {
+        siNo: 10,
+        code: " 5159A ",
+        name: " Web programming Lab ",
+        credits: 1.5,
+      },
+      {
+        siNo: 11,
+        code: " 5159B ",
+        name: " Data structures ",
+        credits: 4,
+      },
+      {
+        siNo: 12,
+        code: " 5159B ",
+        name: " Data structures Lab ",
+        credits: 1.5,
+      },
+      {
+        siNo: 13,
         code: " 6009 ",
         name: " Major Project ",
         credits: 0,
@@ -341,6 +365,12 @@ const courseDetails = {
         code: " 6009 ",
         name: " Major Project ",
         credits: 4,
+      },
+      {
+        siNo: 9,
+        code: " 6007 ",
+        name: " Internship ",
+        credits: 13.5,
       },
     ],
   },
